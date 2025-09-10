@@ -1,6 +1,6 @@
 # SyncUpsTRA
 
-This is an example of TRA in action. Point-Free took Apple's Scrumdinger application and implemented a similar app, called SynccUps, using their tools. This is another implementation of SyncUps using [TRA](https://github.com/ilyathewhite/ReducerArchitecture).
+This is an example of TRA in action. Point-Free took Apple's Scrumdinger application and implemented a similar app, called SyncUps, using their tools. This is another implementation of SyncUps using [TRA](https://github.com/ilyathewhite/ReducerArchitecture).
 
 ## Some Higlights
 
