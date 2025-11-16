@@ -213,11 +213,11 @@ extension RecordMeeting {
                     env.prepareSoundPlayer()
                     return .none
 
-                case .publishMeeting(let trasncript):
+                case .publishMeeting(let transcript):
                     let meeting = Meeting(
                         id: .init(),
                         date: env.now(),
-                        transcript: state.transcript
+                        transcript: transcript
                     )
                     return .action(.publish(.save(meeting)))
                 }

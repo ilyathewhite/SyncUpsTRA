@@ -7,27 +7,28 @@
 
 import SwiftUI
 import ReducerArchitecture
+import AsyncNavigation
 
 @MainActor
 struct AppFlow {
     let rootIndex: Int
     let syncUp: SyncUp
-    let env: NavigationEnv
+    let proxy: NavigationProxy
 
     func endFlow() {
-        env.popTo(rootIndex)
+        proxy.popTo(rootIndex)
     }
 
     func syncDetails(_ syncUp: SyncUp) -> NavigationNode<SyncUpDetails> {
-        .init(SyncUpDetails.store(syncUp), env)
+        .init(SyncUpDetails.store(syncUp), proxy)
     }
 
     func recordMeeting(_ syncUp: SyncUp) -> NavigationNode<RecordMeeting> {
-        .init(RecordMeeting.store(syncUp: syncUp), env)
+        .init(RecordMeeting.store(syncUp: syncUp), proxy)
     }
 
     func showMeetingNotes(syncUp: SyncUp, meeting: Meeting) -> NavigationNode<MeetingNotes> {
-        .init(MeetingNotes.store(syncUp: syncUp, meeting: meeting), env)
+        .init(MeetingNotes.store(syncUp: syncUp, meeting: meeting), proxy)
     }
 
     public func run() async {
@@ -41,7 +42,7 @@ struct AppFlow {
                     case .save(let meeting):
                         appEnv.storageClient.saveMeetingNotes(syncUp, meeting)
                     }
-                    env.popTo(detailsIndex)
+                    proxy.popTo(detailsIndex)
                 }
 
             case .showMeetingNotes(let meeting):

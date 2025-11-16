@@ -158,6 +158,10 @@ extension RecordMeeting: StoreUINamespace {
         typealias Nsp = RecordMeeting
         @ObservedObject var store: Store
 
+        init(_ store: Store) {
+            self.store = store
+        }
+
         @State private var endMeetingAlertResult:
             CheckedContinuation<EndMeetingAlertResult, Never>? = nil
         @State private var speechRecognizerFailureAlertResult:

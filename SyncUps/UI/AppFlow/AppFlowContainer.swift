@@ -7,11 +7,12 @@
 
 import SwiftUI
 import ReducerArchitecture
+import AsyncNavigation
 
 struct AppFlowContainer: View {
     var body: some View {
-        UIKitNavigationFlow(root: SyncUpList.store(syncUps: appEnv.storageClient.allSyncUps())) { syncUp, env in
-            await AppFlow(rootIndex: 0, syncUp: syncUp, env: env).run()
+        UIKitNavigationFlow(SyncUpList.store(syncUps: appEnv.storageClient.allSyncUps())) { syncUp, proxy in
+            await AppFlow(rootIndex: 0, syncUp: syncUp, proxy: proxy).run()
         }
     }
 }

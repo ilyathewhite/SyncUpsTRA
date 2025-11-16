@@ -39,7 +39,7 @@ extension SyncUpForm: StoreUINamespace {
         typealias Nsp = SyncUpForm
         @ObservedObject var store: Store
 
-        init(store: Store) {
+        init(_ store: Store) {
             self.store = store
         }
 

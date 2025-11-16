@@ -62,9 +62,11 @@
 		0923E9C72E6F343A007BBBC9 /* MeetingNotesUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingNotesUI.swift; sourceTree = "<group>"; };
 		0923E9CA2E6F3712007BBBC9 /* RecordMeeting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordMeeting.swift; sourceTree = "<group>"; };
 		0923E9CC2E6F371A007BBBC9 /* RecordMeetingUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordMeetingUI.swift; sourceTree = "<group>"; };
+		09268D482EB84F6B00A087C1 /* ReducerArchitecture */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ReducerArchitecture; path = ../Packages/ReducerArchitecture; sourceTree = SOURCE_ROOT; };
 		096ABF852E70448D00291CE9 /* AppFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlow.swift; sourceTree = "<group>"; };
 		096ABF882E70461700291CE9 /* AppFlowContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlowContainer.swift; sourceTree = "<group>"; };
 		096ABF8A2E70616700291CE9 /* StorageClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageClient.swift; sourceTree = "<group>"; };
+		09D576ED2ECA189F0082B7C3 /* AsyncNavigation */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AsyncNavigation; path = ../Packages/AsyncNavigation; sourceTree = SOURCE_ROOT; };
 		CA350C712984506E00434F8A /* SyncUps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SyncUps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA350C812984506F00434F8A /* SyncUpsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SyncUpsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA350C8B2984506F00434F8A /* SyncUpsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SyncUpsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -173,6 +175,8 @@
 		CA350C682984506E00434F8A = {
 			isa = PBXGroup;
 			children = (
+				09D576ED2ECA189F0082B7C3 /* AsyncNavigation */,
+				09268D482EB84F6B00A087C1 /* ReducerArchitecture */,
 				CA350C732984506E00434F8A /* SyncUps */,
 				CA350C842984506F00434F8A /* SyncUpsTests */,
 				CA350C8E2984506F00434F8A /* SyncUpsUITests */,
@@ -750,7 +754,7 @@
 			repositoryURL = "https://github.com/ilyathewhite/ReducerArchitecture.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.2;
+				minimumVersion = 1.2.8;
 			};
 		};
 		0923E9C02E6DBC21007BBBC9 /* XCRemoteSwiftPackageReference "SwiftUIEx" */ = {

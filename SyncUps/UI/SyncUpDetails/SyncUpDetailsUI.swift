@@ -14,6 +14,10 @@ extension SyncUpDetails: StoreUINamespace {
         typealias Nsp = SyncUpDetails
         @ObservedObject var store: Store
 
+        init(_ store: Store) {
+            self.store = store
+        }
+
         @State private var confirmDelete: CheckedContinuation<Bool, Never>? = nil
         @State private var speechRecognitionRestrictedAlertResult:
             CheckedContinuation<SpeechRecognitionRestrictedAlertResult, Never>? = nil

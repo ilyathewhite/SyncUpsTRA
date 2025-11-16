@@ -13,6 +13,10 @@ extension SyncUpList: StoreUINamespace {
         typealias Nsp = SyncUpList
         @ObservedObject var store: Store
 
+        init(_ store: Store) {
+            self.store = store
+        }
+
         var createSyncUpUI: StoreUI<SyncUpForm>? { .init(store.child()) }
 
         var body: some View {

@@ -13,6 +13,10 @@ extension MeetingNotes: StoreUINamespace {
         typealias Nsp = MeetingNotes
         @ObservedObject var store: Store
 
+        init(_ store: Store) {
+            self.store = store
+        }
+
         var body: some View {
             ScrollView {
                 VStack(alignment: .leading) {
