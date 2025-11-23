@@ -28,8 +28,8 @@ enum RecordMeeting: StoreNamespace {
     typealias PublishedValue = ResultAction
 
     struct StoreEnvironment {
-        let showEndMeetingAlert: (_ discardable: Bool) async -> EndMeetingAlertResult
-        let showSpeechRecognizerFailureAlert: () async -> SpeechRecognizerFailureAlertResult
+        let showEndMeetingAlert: (_ discardable: Bool) async throws -> EndMeetingAlertResult
+        let showSpeechRecognizerFailureAlert: () async throws -> SpeechRecognizerFailureAlertResult
         let prepareSoundPlayer: () -> Void
         let playNextSpeakerSound: () -> Void
         let startTranscriptRecording: () async -> AsyncThrowingStream<SpeechRecognitionResult, Error>
@@ -139,7 +139,7 @@ extension RecordMeeting {
                                 continuation.yield(.mutating(.updateIgnoreTimer(true)))
                                 defer { continuation.yield(.mutating(.updateIgnoreTimer(false))) }
 
-                                let alertResult = await env.showEndMeetingAlert(discardable)
+                                guard let alertResult = try? await env.showEndMeetingAlert(discardable) else { return }
                                 switch alertResult {
                                 case .saveAndEnd:
                                     continuation.yield(.effect(.publishMeeting(transcript: state.transcript)))
@@ -162,7 +162,7 @@ extension RecordMeeting {
                                 continuation.yield(.mutating(.updateIgnoreTimer(true)))
                                 defer { continuation.yield(.mutating(.updateIgnoreTimer(false))) }
 
-                                let result = await env.showSpeechRecognizerFailureAlert()
+                                guard let result = try? await env.showSpeechRecognizerFailureAlert() else { return }
                                 switch result {
                                 case .discard:
                                     continuation.yield(.publish(.discard))

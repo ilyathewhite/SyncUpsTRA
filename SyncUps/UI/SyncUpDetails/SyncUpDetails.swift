@@ -50,10 +50,10 @@ enum SyncUpDetails: StoreNamespace {
         let edit: (SyncUp) async -> SyncUp?
         let save: (SyncUp) -> Void
         let find: (SyncUp.ID) -> SyncUp?
-        let confirmDelete: () async -> Bool
+        let confirmDelete: () async throws -> Bool
         let checkSpeechRecognitionAuthorization: () -> AuthorizationStatus
-        let showSpeechRecognitionRestrictedAlert: () async -> SpeechRecognitionRestrictedAlertResult
-        let showSpeechRecognitionDeniedAlert: () async -> SpeechRecognitionDeniedAlertResult
+        let showSpeechRecognitionRestrictedAlert: () async throws -> SpeechRecognitionRestrictedAlertResult
+        let showSpeechRecognitionDeniedAlert: () async throws -> SpeechRecognitionDeniedAlertResult
         let openSettings: () -> Void
     }
 
@@ -120,7 +120,8 @@ extension SyncUpDetails {
 
                 case .confirmDeleteSyncUp:
                     return .asyncAction {
-                        if await env.confirmDelete() {
+                        guard let shouldDelete = try? await env.confirmDelete() else { return .none }
+                        if shouldDelete {
                             return .publish(.deleteSyncUp)
                         }
                         else {
@@ -154,7 +155,7 @@ extension SyncUpDetails {
 
                 case .showSpeechRecognitionRestrictedAlert:
                     return .asyncAction {
-                        let result = await env.showSpeechRecognitionRestrictedAlert()
+                        guard let result = try? await env.showSpeechRecognitionRestrictedAlert() else { return .none }
                         switch result {
                         case .startMeeting:
                             return .publish(.startMeeting)
@@ -165,7 +166,7 @@ extension SyncUpDetails {
 
                 case .showSpeechRecognitionDeniedAlert:
                     return .asyncAction {
-                        let result = await env.showSpeechRecognitionDeniedAlert()
+                        guard let result = try? await env.showSpeechRecognitionDeniedAlert() else { return .none }
                         switch result {
                         case .startMeeting:
                             return .publish(.startMeeting)

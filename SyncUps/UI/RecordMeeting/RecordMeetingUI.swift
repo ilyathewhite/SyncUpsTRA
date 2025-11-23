@@ -163,9 +163,9 @@ extension RecordMeeting: StoreUINamespace {
         }
 
         @State private var endMeetingAlertResult:
-            CheckedContinuation<EndMeetingAlertResult, Never>? = nil
+            CheckedContinuation<EndMeetingAlertResult, Error>? = nil
         @State private var speechRecognizerFailureAlertResult:
-            CheckedContinuation<SpeechRecognizerFailureAlertResult, Never>? = nil
+            CheckedContinuation<SpeechRecognizerFailureAlertResult, Error>? = nil
 
         @State private var showDiscardButton = false
 
@@ -244,12 +244,12 @@ extension RecordMeeting: StoreUINamespace {
                 store.environment = .init(
                     showEndMeetingAlert: { discardable in
                         showDiscardButton = discardable
-                        return await withCheckedContinuation { continuation in
+                        return try await withCheckedThrowingContinuation { continuation in
                             endMeetingAlertResult = continuation
                         }
                     },
                     showSpeechRecognizerFailureAlert: {
-                        return await withCheckedContinuation { continuation in
+                        return try await withCheckedThrowingContinuation { continuation in
                             speechRecognizerFailureAlertResult = continuation
                         }
                     },

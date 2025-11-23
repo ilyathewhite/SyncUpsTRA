@@ -16,7 +16,7 @@ struct AppFlow {
     let proxy: NavigationProxy
 
     func endFlow() {
-        proxy.popTo(rootIndex)
+        proxy.pop(to: rootIndex)
     }
 
     func syncDetails(_ syncUp: SyncUp) -> NavigationNode<SyncUpDetails> {
@@ -42,7 +42,7 @@ struct AppFlow {
                     case .save(let meeting):
                         appEnv.storageClient.saveMeetingNotes(syncUp, meeting)
                     }
-                    proxy.popTo(detailsIndex)
+                    proxy.pop(to: detailsIndex)
                 }
 
             case .showMeetingNotes(let meeting):

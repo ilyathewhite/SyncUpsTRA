@@ -18,11 +18,11 @@ extension SyncUpDetails: StoreUINamespace {
             self.store = store
         }
 
-        @State private var confirmDelete: CheckedContinuation<Bool, Never>? = nil
+        @State private var confirmDelete: CheckedContinuation<Bool, Error>? = nil
         @State private var speechRecognitionRestrictedAlertResult:
-            CheckedContinuation<SpeechRecognitionRestrictedAlertResult, Never>? = nil
+            CheckedContinuation<SpeechRecognitionRestrictedAlertResult, Error>? = nil
         @State private var speechRecognitionDeniedAlertResult:
-            CheckedContinuation<SpeechRecognitionDeniedAlertResult, Never>? = nil
+            CheckedContinuation<SpeechRecognitionDeniedAlertResult, Error>? = nil
 
         var editSyncUpUI: StoreUI<SyncUpForm>? { .init(store.child()) }
 
@@ -196,7 +196,7 @@ extension SyncUpDetails: StoreUINamespace {
                         appEnv.storageClient.findSyncUp(id)
                     },
                     confirmDelete: {
-                        return await withCheckedContinuation { continuation in
+                        return try await withCheckedThrowingContinuation { continuation in
                             confirmDelete = continuation
                         }
                     },
@@ -215,12 +215,12 @@ extension SyncUpDetails: StoreUINamespace {
                         }
                     },
                     showSpeechRecognitionRestrictedAlert: {
-                        return await withCheckedContinuation { continuation in
+                        return try await withCheckedThrowingContinuation { continuation in
                             speechRecognitionRestrictedAlertResult = continuation
                         }
                     },
                     showSpeechRecognitionDeniedAlert: {
-                        return await withCheckedContinuation { continuation in
+                        return try await withCheckedThrowingContinuation { continuation in
                             speechRecognitionDeniedAlertResult = continuation
                         }
                     },
