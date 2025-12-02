@@ -65,7 +65,7 @@ enum SyncUpDetails: StoreNamespace {
     enum EffectAction {
         case editSyncUp(SyncUp)
         case confirmDeleteSyncUp
-        case checkSpeechRecognitionAuthorization
+        case startMeeting
         case showSpeechRecognitionRestrictedAlert
         case showSpeechRecognitionDeniedAlert
         case openSettings
@@ -142,7 +142,7 @@ extension SyncUpDetails {
                         return .none
                     }
 
-                case .checkSpeechRecognitionAuthorization:
+                case .startMeeting:
                     let result = env.checkSpeechRecognitionAuthorization()
                     switch result {
                     case .notDetermined, .authorized:

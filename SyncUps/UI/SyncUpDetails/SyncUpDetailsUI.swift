@@ -36,7 +36,7 @@ extension SyncUpDetails: StoreUINamespace {
                 Section(
                     content: {
                         // Start
-                        Button(action: { store.send(.effect(.checkSpeechRecognitionAuthorization)) }) {
+                        Button(action: { store.send(.effect(.startMeeting)) }) {
                             Label("Start Meeting", systemImage: "timer")
                                 .font(.headline)
                                 .foregroundColor(.accentColor)
