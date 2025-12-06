@@ -12,6 +12,7 @@ import ReducerArchitecture
 
 extension RecordMeeting: StoreUINamespace {
     struct MeetingHeaderView: View {
+        let progress: Double
         let secondsElapsed: Int
         let durationRemaining: Duration
         let theme: Theme
@@ -40,15 +41,6 @@ extension RecordMeeting: StoreUINamespace {
                 }
             }
             .padding([.top, .horizontal])
-        }
-
-        private var totalDuration: Duration {
-            .seconds(secondsElapsed) + durationRemaining
-        }
-
-        private var progress: Double {
-            guard totalDuration > .seconds(0) else { return 0 }
-            return Double(secondsElapsed) / Double(totalDuration.components.seconds)
         }
     }
 
@@ -180,6 +172,7 @@ extension RecordMeeting: StoreUINamespace {
 
                 VStack {
                     MeetingHeaderView(
+                        progress: store.state.progress,
                         secondsElapsed: store.state.secondsElapsed,
                         durationRemaining: store.state.durationRemaining,
                         theme: syncUp.theme
@@ -284,9 +277,42 @@ extension RecordMeeting: StoreUINamespace {
     }
 }
 
+// Xcode creates more than one copy of recorMeeting store, which results
+// in addiitonal sounds for the next speaker. The workaround is to wrap
+// it in a flow so that as soon as the flow is finished, the store is cancelled.
+
 #Preview {
-    let store = RecordMeeting.store(syncUp: .mock)
-    return NavigationStack {
-        store.contentView
+    enum PreviewStartScreen: ViewModelUINamespace {
+        class ViewModel: BaseViewModel<Void> {}
+        struct ContentView: ViewModelContentView {
+            typealias Nsp = PreviewStartScreen
+            @ObservedObject var viewModel: ViewModel
+
+            init(_ viewModel: ViewModel) {
+                self.viewModel = viewModel
+            }
+
+            var body: some View {
+                Button("Start") {
+                    viewModel.publish(())
+                }
+            }
+        }
+    }
+
+    @MainActor
+    func start() -> RootNavigationNode<PreviewStartScreen> {
+        .init(PreviewStartScreen.ViewModel())
+    }
+
+    @MainActor
+    func recordMeeting(_ syncUp: SyncUp, _ proxy: NavigationProxy) -> NavigationNode<RecordMeeting> {
+        .init(RecordMeeting.store(syncUp: syncUp), proxy)
+    }
+
+    return NavigationFlow(start()) { _, proxy in
+        await recordMeeting(.mock, proxy).then { _, _ in
+            proxy.popToRoot()
+        }
     }
 }

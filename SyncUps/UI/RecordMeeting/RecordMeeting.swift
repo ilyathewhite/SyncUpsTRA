@@ -60,6 +60,10 @@ enum RecordMeeting: StoreNamespace {
         var transcript = ""
         var ignoreTimeUpdates = false
 
+        var progress: Double {
+            min(1, Duration.seconds(secondsElapsed) / syncUp.duration)
+        }
+
         var durationRemaining: Duration {
             syncUp.duration - .seconds(secondsElapsed)
         }
@@ -96,10 +100,7 @@ extension RecordMeeting {
             run: { state, action in
                 switch action {
                 case .nextSpeaker:
-                    guard state.speakerIndex + 1 < state.syncUp.attendees.count else {
-                        return .action(.effect(.showEndMeetingAlert(discardable: false)))
-                    }
-
+                    guard !state.meetingFinished else { return .none }
                     state.moveToNextSpeaker()
                     return .action(.effect(.playNextSpeakerSound))
 
@@ -110,15 +111,17 @@ extension RecordMeeting {
                 case .incSecondsElapsed:
                     guard !state.ignoreTimeUpdates else { return .none }
                     state.secondsElapsed += 1
+
+                    if state.meetingFinished {
+                        return .action(.effect(.publishMeeting(transcript: state.transcript)))
+                    }
+
                     let secondsPerAttendee = Int(state.syncUp.durationPerAttendee.components.seconds)
                     if !state.secondsElapsed.isMultiple(of: secondsPerAttendee) {
                         return .none
                     }
                     else if state.speakerIndex + 1 < state.syncUp.attendees.count {
                         return .action(.mutating(.nextSpeaker))
-                    }
-                    else if state.meetingFinished {
-                        return .action(.effect(.publishMeeting(transcript: state.transcript)))
                     }
                     else {
                         return .none
