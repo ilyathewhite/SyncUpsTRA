@@ -19,7 +19,7 @@ struct AppFlow {
         proxy.pop(to: rootIndex)
     }
 
-    func syncDetails(_ syncUp: SyncUp) -> NavigationNode<SyncUpDetails> {
+    func showSyncUpDetails(_ syncUp: SyncUp) -> NavigationNode<SyncUpDetails> {
         .init(SyncUpDetails.store(syncUp), proxy)
     }
 
@@ -32,7 +32,7 @@ struct AppFlow {
     }
 
     public func run() async {
-        await syncDetails(syncUp).then { detailsAction, detailsIndex in
+        await showSyncUpDetails(syncUp).then { detailsAction, detailsIndex in
             switch detailsAction {
             case .startMeeting:
                 await recordMeeting(syncUp).then { meetingAction, _ in
