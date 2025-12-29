@@ -135,44 +135,36 @@ extension RecordMeeting {
             effect: { env, state, action in
                 switch action {
                 case .showEndMeetingAlert(let discardable):
-                    return .asyncActionSequence {
-                        .init { continuation in
-                            Task {
-                                // ignore the timer while showing the alert
-                                continuation.yield(.mutating(.updateIgnoreTimer(true)))
-                                defer { continuation.yield(.mutating(.updateIgnoreTimer(false))) }
+                    return .asyncActionSequence { send in
+                        // ignore the timer while showing the alert
+                        send(.mutating(.updateIgnoreTimer(true)))
+                        defer { send(.mutating(.updateIgnoreTimer(false))) }
 
-                                guard let alertResult = try? await env.showEndMeetingAlert(discardable) else { return }
-                                switch alertResult {
-                                case .saveAndEnd:
-                                    continuation.yield(.effect(.publishMeeting(transcript: state.transcript)))
+                        guard let alertResult = try? await env.showEndMeetingAlert(discardable) else { return }
+                        switch alertResult {
+                        case .saveAndEnd:
+                            send(.effect(.publishMeeting(transcript: state.transcript)))
 
-                                case .discrard:
-                                    continuation.yield(.publish(.discard))
+                        case .discrard:
+                            send(.publish(.discard))
 
-                                case .resume:
-                                    break
-                                }
-                            }
+                        case .resume:
+                            break
                         }
                     }
 
                 case .showSpeechRecognizerFailureAlert:
-                    return .asyncActionSequence {
-                        .init { continuation in
-                            Task {
-                                // ignore the timer while showing the alert
-                                continuation.yield(.mutating(.updateIgnoreTimer(true)))
-                                defer { continuation.yield(.mutating(.updateIgnoreTimer(false))) }
+                    return .asyncActionSequence { send in
+                        // ignore the timer while showing the alert
+                        send(.mutating(.updateIgnoreTimer(true)))
+                        defer { send(.mutating(.updateIgnoreTimer(false))) }
 
-                                guard let result = try? await env.showSpeechRecognizerFailureAlert() else { return }
-                                switch result {
-                                case .discard:
-                                    continuation.yield(.publish(.discard))
-                                case .continue:
-                                    break
-                                }
-                            }
+                        guard let result = try? await env.showSpeechRecognizerFailureAlert() else { return }
+                        switch result {
+                        case .discard:
+                            send(.publish(.discard))
+                        case .continue:
+                            break
                         }
                     }
 
@@ -181,34 +173,25 @@ extension RecordMeeting {
                     return .none
 
                 case .startOneSecondTimer:
-                    return .asyncActionSequence {
-                        return .init { continuation in
-                            Task {
-                                let clock = ContinuousClock()
-                                while !Task.isCancelled {
-                                    try? await clock.sleep(for: .seconds(1))
-                                    continuation.yield(.mutating(.incSecondsElapsed))
-                                }
-                            }
+                    return .asyncActionSequence { send in
+                        let clock = ContinuousClock()
+                        while !Task.isCancelled {
+                            try? await clock.sleep(for: .seconds(1))
+                            send(.mutating(.incSecondsElapsed))
                         }
                     }
 
                 case .startTranscriptRecording:
-                    return .asyncActionSequence {
-                        .init { continuation in
-
-                            Task {
-                                let updates = await env.startTranscriptRecording()
-                                do {
-                                    for try await update in updates {
-                                        let value = update.bestTranscription.formattedString
-                                        continuation.yield(.mutating(.updateTranscript(value)))
-                                    }
-                                }
-                                catch {
-                                    continuation.yield(.effect(.showSpeechRecognizerFailureAlert))
-                                }
+                    return .asyncActionSequence { send in
+                        let updates = await env.startTranscriptRecording()
+                        do {
+                            for try await update in updates {
+                                let value = update.bestTranscription.formattedString
+                                send(.mutating(.updateTranscript(value)))
                             }
+                        }
+                        catch {
+                            send(.effect(.showSpeechRecognizerFailureAlert))
                         }
                     }
                     
