@@ -23,6 +23,6 @@ enum MeetingNotes: StoreNamespace {
 extension MeetingNotes {
     @MainActor
     static func store(syncUp: SyncUp, meeting: Meeting) -> Store {
-        Store(.init(syncUp: syncUp, meeting: meeting), reducer: reducer())
+        Store(.init(syncUp: syncUp, meeting: meeting), env: nil)
     }
 }

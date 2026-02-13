@@ -52,51 +52,49 @@ extension SyncUpForm {
     @MainActor
     static func store(syncUp: SyncUp, title: String, saveTitle: String, cancelTitle: String) -> Store {
         let state: StoreState = .init(syncUp: syncUp, title: title, saveTitle: saveTitle, cancelTitle: cancelTitle)
-        return Store(state, reducer: reducer(), env: nil)
+        return Store(state, env: nil)
     }
 
     @MainActor
-    static func reducer() -> Reducer {
-        .init(
-            run: { state, action in
-                switch action {
-                case .updateTitle(let value):
-                    state.syncUp.title = value
+    static func reduce(_ state: inout StoreState, _ action: MutatingAction) -> Store.SyncEffect {
+        switch action {
+        case .updateTitle(let value):
+            state.syncUp.title = value
 
-                case .updateDuration(minutes: let value):
-                    state.syncUp.duration = .seconds(60 * value)
+        case .updateDuration(minutes: let value):
+            state.syncUp.duration = .seconds(60 * value)
 
-                case .updateTheme(let value):
-                    state.syncUp.theme = value
+        case .updateTheme(let value):
+            state.syncUp.theme = value
 
-                case let .updateAttendeeName(id, name):
-                    guard let index = state.syncUp.attendees.firstIndex(where: { $0.id == id }) else {
-                        assertionFailure()
-                        return .none
-                    }
-                    state.syncUp.attendees[index].name = name
-
-                case .addAttendee:
-                    let attendee: Attendee = .init(id: .init())
-                    state.syncUp.attendees.append(attendee)
-                    return .action(.effect(.editAttendee(attendee.id)))
-
-                case .removeAttendee(let id):
-                    guard let index = state.syncUp.attendees.firstIndex(where: { $0.id == id }) else {
-                        assertionFailure()
-                        return .none
-                    }
-                    state.syncUp.attendees.remove(at: index)
-                }
-                return .none
-            },
-            effect: { env, _, action in
-                switch action {
-                case .editAttendee(let id):
-                    env.editAttendee(id)
-                }
+        case let .updateAttendeeName(id, name):
+            guard let index = state.syncUp.attendees.firstIndex(where: { $0.id == id }) else {
+                assertionFailure()
                 return .none
             }
-        )
+            state.syncUp.attendees[index].name = name
+
+        case .addAttendee:
+            let attendee: Attendee = .init(id: .init())
+            state.syncUp.attendees.append(attendee)
+            return .action(.effect(.editAttendee(attendee.id)))
+
+        case .removeAttendee(let id):
+            guard let index = state.syncUp.attendees.firstIndex(where: { $0.id == id }) else {
+                assertionFailure()
+                return .none
+            }
+            state.syncUp.attendees.remove(at: index)
+        }
+        return .none
+    }
+
+    @MainActor
+    static func runEffect(_ env: StoreEnvironment, _ state: StoreState, _ action: EffectAction) -> Store.Effect {
+        switch action {
+        case .editAttendee(let id):
+            env.editAttendee(id)
+        }
+        return .none
     }
 }

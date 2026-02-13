@@ -32,36 +32,34 @@ enum SyncUpList: StoreNamespace {
 extension SyncUpList {
     @MainActor
     static func store(syncUps: [SyncUp]) -> Store {
-        Store(.init(syncUps: syncUps), reducer: reducer(), env: nil)
+        Store(.init(syncUps: syncUps), env: nil)
     }
 
     @MainActor
-    static func reducer() -> Reducer {
-        .init(
-            run: { state, action in
-                switch action {
-                case .reload(let syncUps):
-                    state.syncUps = syncUps
-                }
-                return .none
-            },
-            effect: { env, state, action in
-                switch action {
-                case .addSyncUp:
-                    return .asyncAction {
-                        if await env.createSyncUp() != nil {
-                            return .effect(.reload)
-                        }
-                        else {
-                            return .none
-                        }
-                    }
+    static func reduce(_ state: inout StoreState, _ action: MutatingAction) -> Store.SyncEffect {
+        switch action {
+        case .reload(let syncUps):
+            state.syncUps = syncUps
+        }
+        return .none
+    }
 
-                case .reload:
-                    let allSyncUps = env.allSyncUps()
-                    return .action(.mutating(.reload(allSyncUps), animated: true))
+    @MainActor
+    static func runEffect(_ env: StoreEnvironment, _ state: StoreState, _ action: EffectAction) -> Store.Effect {
+        switch action {
+        case .addSyncUp:
+            return .asyncAction {
+                if await env.createSyncUp() != nil {
+                    return .effect(.reload)
+                }
+                else {
+                    return .none
                 }
             }
-        )
+
+        case .reload:
+            let allSyncUps = env.allSyncUps()
+            return .action(.mutating(.reload(allSyncUps), animated: true))
+        }
     }
 }

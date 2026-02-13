@@ -91,124 +91,121 @@ enum RecordMeeting: StoreNamespace {
 extension RecordMeeting {
     @MainActor
     static func store(syncUp: SyncUp) -> Store {
-        Store(.init(syncUp: syncUp), reducer: reducer(), env: nil)
+        Store(.init(syncUp: syncUp), env: nil)
     }
 
     @MainActor
-    static func reducer() -> Reducer {
-        .init(
-            run: { state, action in
-                switch action {
-                case .nextSpeaker:
-                    guard !state.meetingFinished else { return .none }
-                    state.moveToNextSpeaker()
-                    return .action(.effect(.playNextSpeakerSound))
+    static func reduce(_ state: inout StoreState, _ action: MutatingAction) -> Store.SyncEffect {
+        switch action {
+        case .nextSpeaker:
+            guard !state.meetingFinished else { return .none }
+            state.moveToNextSpeaker()
+            return .action(.effect(.playNextSpeakerSound))
 
-                case .updateTranscript(let value):
-                    state.transcript = value
-                    return .none
+        case .updateTranscript(let value):
+            state.transcript = value
+            return .none
 
-                case .incSecondsElapsed:
-                    guard !state.ignoreTimeUpdates else { return .none }
-                    state.secondsElapsed += 1
+        case .incSecondsElapsed:
+            guard !state.ignoreTimeUpdates else { return .none }
+            state.secondsElapsed += 1
 
-                    if state.meetingFinished {
-                        return .action(.effect(.publishMeeting(transcript: state.transcript)))
-                    }
+            if state.meetingFinished {
+                return .action(.effect(.publishMeeting(transcript: state.transcript)))
+            }
 
-                    let secondsPerAttendee = Int(state.syncUp.durationPerAttendee.components.seconds)
-                    if !state.secondsElapsed.isMultiple(of: secondsPerAttendee) {
-                        return .none
-                    }
-                    else if state.speakerIndex + 1 < state.syncUp.attendees.count {
-                        return .action(.mutating(.nextSpeaker))
-                    }
-                    else {
-                        return .none
-                    }
+            let secondsPerAttendee = Int(state.syncUp.durationPerAttendee.components.seconds)
+            if !state.secondsElapsed.isMultiple(of: secondsPerAttendee) {
+                return .none
+            }
+            else if state.speakerIndex + 1 < state.syncUp.attendees.count {
+                return .action(.mutating(.nextSpeaker))
+            }
+            else {
+                return .none
+            }
 
-                case .updateIgnoreTimer(let value):
-                    state.ignoreTimeUpdates = value
-                    return .none
-                }
-            },
-            effect: { env, state, action in
-                switch action {
-                case .showEndMeetingAlert(let discardable):
-                    return .asyncActionSequence { send in
-                        // ignore the timer while showing the alert
-                        send(.mutating(.updateIgnoreTimer(true)))
-                        defer { send(.mutating(.updateIgnoreTimer(false))) }
+        case .updateIgnoreTimer(let value):
+            state.ignoreTimeUpdates = value
+            return .none
+        }
+    }
 
-                        guard let alertResult = try? await env.showEndMeetingAlert(discardable) else { return }
-                        switch alertResult {
-                        case .saveAndEnd:
-                            send(.effect(.publishMeeting(transcript: state.transcript)))
+    @MainActor
+    static func runEffect(_ env: StoreEnvironment, _ state: StoreState, _ action: EffectAction) -> Store.Effect {
+        switch action {
+        case .showEndMeetingAlert(let discardable):
+            return .asyncActionSequence { send in
+                // ignore the timer while showing the alert
+                send(.mutating(.updateIgnoreTimer(true)))
+                defer { send(.mutating(.updateIgnoreTimer(false))) }
 
-                        case .discrard:
-                            send(.publish(.discard))
+                guard let alertResult = try? await env.showEndMeetingAlert(discardable) else { return }
+                switch alertResult {
+                case .saveAndEnd:
+                    send(.effect(.publishMeeting(transcript: state.transcript)))
 
-                        case .resume:
-                            break
-                        }
-                    }
+                case .discrard:
+                    send(.publish(.discard))
 
-                case .showSpeechRecognizerFailureAlert:
-                    return .asyncActionSequence { send in
-                        // ignore the timer while showing the alert
-                        send(.mutating(.updateIgnoreTimer(true)))
-                        defer { send(.mutating(.updateIgnoreTimer(false))) }
-
-                        guard let result = try? await env.showSpeechRecognizerFailureAlert() else { return }
-                        switch result {
-                        case .discard:
-                            send(.publish(.discard))
-                        case .continue:
-                            break
-                        }
-                    }
-
-                case .playNextSpeakerSound:
-                    env.playNextSpeakerSound()
-                    return .none
-
-                case .startOneSecondTimer:
-                    return .asyncActionSequence { send in
-                        let clock = ContinuousClock()
-                        while !Task.isCancelled {
-                            try? await clock.sleep(for: .seconds(1))
-                            send(.mutating(.incSecondsElapsed))
-                        }
-                    }
-
-                case .startTranscriptRecording:
-                    return .asyncActionSequence { send in
-                        let updates = await env.startTranscriptRecording()
-                        do {
-                            for try await update in updates {
-                                let value = update.bestTranscription.formattedString
-                                send(.mutating(.updateTranscript(value)))
-                            }
-                        }
-                        catch {
-                            send(.effect(.showSpeechRecognizerFailureAlert))
-                        }
-                    }
-                    
-                case .prepareSoundPlayer:
-                    env.prepareSoundPlayer()
-                    return .none
-
-                case .publishMeeting(let transcript):
-                    let meeting = Meeting(
-                        id: .init(),
-                        date: env.now(),
-                        transcript: transcript
-                    )
-                    return .action(.publish(.save(meeting)))
+                case .resume:
+                    break
                 }
             }
-        )
+
+        case .showSpeechRecognizerFailureAlert:
+            return .asyncActionSequence { send in
+                // ignore the timer while showing the alert
+                send(.mutating(.updateIgnoreTimer(true)))
+                defer { send(.mutating(.updateIgnoreTimer(false))) }
+
+                guard let result = try? await env.showSpeechRecognizerFailureAlert() else { return }
+                switch result {
+                case .discard:
+                    send(.publish(.discard))
+                case .continue:
+                    break
+                }
+            }
+
+        case .playNextSpeakerSound:
+            env.playNextSpeakerSound()
+            return .none
+
+        case .startOneSecondTimer:
+            return .asyncActionSequence { send in
+                let clock = ContinuousClock()
+                while !Task.isCancelled {
+                    try? await clock.sleep(for: .seconds(1))
+                    send(.mutating(.incSecondsElapsed))
+                }
+            }
+
+        case .startTranscriptRecording:
+            return .asyncActionSequence { send in
+                let updates = await env.startTranscriptRecording()
+                do {
+                    for try await update in updates {
+                        let value = update.bestTranscription.formattedString
+                        send(.mutating(.updateTranscript(value)))
+                    }
+                }
+                catch {
+                    send(.effect(.showSpeechRecognizerFailureAlert))
+                }
+            }
+
+        case .prepareSoundPlayer:
+            env.prepareSoundPlayer()
+            return .none
+
+        case .publishMeeting(let transcript):
+            let meeting = Meeting(
+                id: .init(),
+                date: env.now(),
+                transcript: transcript
+            )
+            return .action(.publish(.save(meeting)))
+        }
     }
 }
-

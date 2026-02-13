@@ -750,7 +750,7 @@
 			repositoryURL = "https://github.com/ilyathewhite/ReducerArchitecture.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.3.3;
+				minimumVersion = 1.4.0;
 			};
 		};
 		0923E9C02E6DBC21007BBBC9 /* XCRemoteSwiftPackageReference "SwiftUIEx" */ = {
@@ -758,7 +758,7 @@
 			repositoryURL = "https://github.com/ilyathewhite/SwiftUIEx.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.5;
+				minimumVersion = 1.0.7;
 			};
 		};
 		CAAF4DCD2C3586E200774888 /* XCRemoteSwiftPackageReference "swift-tagged" */ = {
