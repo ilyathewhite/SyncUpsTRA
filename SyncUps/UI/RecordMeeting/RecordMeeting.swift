@@ -11,7 +11,7 @@ import ReducerArchitecture
 enum RecordMeeting: StoreNamespace {
     enum EndMeetingAlertResult {
         case saveAndEnd
-        case discrard
+        case discard
         case resume
     }
 
@@ -68,6 +68,10 @@ enum RecordMeeting: StoreNamespace {
             syncUp.duration - .seconds(secondsElapsed)
         }
 
+        var secondsPerAttendee: Int {
+            Int(syncUp.durationPerAttendee.components.seconds)
+        }
+
         var meetingFinished: Bool {
             syncUp.duration <= .seconds(secondsElapsed)
         }
@@ -83,7 +87,7 @@ enum RecordMeeting: StoreNamespace {
 
         mutating func moveToNextSpeaker() {
             speakerIndex += 1
-            secondsElapsed = speakerIndex * Int(syncUp.durationPerAttendee.components.seconds)
+            secondsElapsed = speakerIndex * secondsPerAttendee
         }
     }
 }
@@ -114,8 +118,7 @@ extension RecordMeeting {
                 return .action(.effect(.publishMeeting(transcript: state.transcript)))
             }
 
-            let secondsPerAttendee = Int(state.syncUp.durationPerAttendee.components.seconds)
-            if !state.secondsElapsed.isMultiple(of: secondsPerAttendee) {
+            if !state.secondsElapsed.isMultiple(of: state.secondsPerAttendee) {
                 return .none
             }
             else if state.speakerIndex + 1 < state.syncUp.attendees.count {
@@ -145,7 +148,7 @@ extension RecordMeeting {
                 case .saveAndEnd:
                     send(.effect(.publishMeeting(transcript: state.transcript)))
 
-                case .discrard:
+                case .discard:
                     send(.publish(.discard))
 
                 case .resume:

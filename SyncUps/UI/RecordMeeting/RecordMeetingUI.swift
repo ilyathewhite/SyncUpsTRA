@@ -199,7 +199,7 @@ extension RecordMeeting: StoreUINamespace {
                     }
                     if showDiscardButton {
                         Button("Discard", role: .destructive) {
-                            complete(.discrard)
+                            complete(.discard)
                         }
                     }
                     Button("Resume", role: .cancel) {

@@ -10,7 +10,11 @@ struct SyncUp: Hashable, Identifiable, Codable {
     var title = ""
 
     var durationPerAttendee: Duration {
-        duration / attendees.count
+        guard !attendees.isEmpty else {
+            assertionFailure()
+            return .seconds(0)
+        }
+        return duration / attendees.count
     }
 }
 
