@@ -180,52 +180,36 @@ extension SyncUpDetails: StoreUINamespace {
             }
             .connectOnAppear {
                 store.environment = .init(
-                    edit: { syncUp in
-                        let editStore = SyncUpForm.store(
-                            syncUp: syncUp,
-                            title: syncUp.title,
-                            saveTitle: "Done",
-                            cancelTitle: "Cancel"
-                        )
-                        return try? await store.run(editStore)
+                    edit: { [weak store] syncUp in
+                        guard let store else { return nil }
+                        return await Nsp.edit(syncUp: syncUp, store: store)
                     },
                     save: { syncUp in
-                        appEnv.storageClient.saveSyncUp(syncUp)
+                        Nsp.save(syncUp: syncUp)
                     },
                     find: { id in
-                        appEnv.storageClient.findSyncUp(id)
+                        Nsp.find(id: id)
                     },
                     confirmDelete: {
-                        return try await withCheckedThrowingContinuation { continuation in
+                        try await withCheckedThrowingContinuation { continuation in
                             confirmDelete = continuation
                         }
                     },
                     checkSpeechRecognitionAuthorization: {
-                        switch appEnv.speechClient.authorizationStatus() {
-                        case .authorized:
-                            return .authorized
-                        case .notDetermined:
-                            return .notDetermined
-                        case .restricted:
-                            return .restricted
-                        case .denied:
-                            return .denied
-                        default:
-                            return .notDetermined
-                        }
+                        Nsp.checkSpeechRecognitionAuthorization()
                     },
                     showSpeechRecognitionRestrictedAlert: {
-                        return try await withCheckedThrowingContinuation { continuation in
+                        try await withCheckedThrowingContinuation { continuation in
                             speechRecognitionRestrictedAlertResult = continuation
                         }
                     },
                     showSpeechRecognitionDeniedAlert: {
-                        return try await withCheckedThrowingContinuation { continuation in
+                        try await withCheckedThrowingContinuation { continuation in
                             speechRecognitionDeniedAlertResult = continuation
                         }
                     },
                     openSettings: {
-                        appEnv.openSettings()
+                        Nsp.openSettings()
                     }
                 )
             }

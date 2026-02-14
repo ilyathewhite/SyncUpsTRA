@@ -24,6 +24,9 @@
 		096ABF862E70449000291CE9 /* AppFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096ABF852E70448D00291CE9 /* AppFlow.swift */; };
 		096ABF892E70461B00291CE9 /* AppFlowContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096ABF882E70461700291CE9 /* AppFlowContainer.swift */; };
 		096ABF8B2E70616B00291CE9 /* StorageClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096ABF8A2E70616700291CE9 /* StorageClient.swift */; };
+		09F4C9D92FD020C800A1B2C3 /* SyncUpListEnv.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F4C9D82FD020C800A1B2C3 /* SyncUpListEnv.swift */; };
+		09F4CA0B2FD02AA100A1B2C3 /* SyncUpDetailsEnv.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F4CA0A2FD02AA100A1B2C3 /* SyncUpDetailsEnv.swift */; };
+		09F4CB022FD03F3200A1B2C3 /* RecordMeetingEnv.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F4CB012FD03F3200A1B2C3 /* RecordMeetingEnv.swift */; };
 		CA350CB3298450BF00434F8A /* SpeechClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA350CA6298450BF00434F8A /* SpeechClient.swift */; };
 		CA350CB5298450BF00434F8A /* SoundEffectClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA350CA8298450BF00434F8A /* SoundEffectClient.swift */; };
 		CA350CB7298450BF00434F8A /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA350CAA298450BF00434F8A /* Models.swift */; };
@@ -65,6 +68,9 @@
 		096ABF852E70448D00291CE9 /* AppFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlow.swift; sourceTree = "<group>"; };
 		096ABF882E70461700291CE9 /* AppFlowContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlowContainer.swift; sourceTree = "<group>"; };
 		096ABF8A2E70616700291CE9 /* StorageClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageClient.swift; sourceTree = "<group>"; };
+		09F4C9D82FD020C800A1B2C3 /* SyncUpListEnv.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncUpListEnv.swift; sourceTree = "<group>"; };
+		09F4CA0A2FD02AA100A1B2C3 /* SyncUpDetailsEnv.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncUpDetailsEnv.swift; sourceTree = "<group>"; };
+		09F4CB012FD03F3200A1B2C3 /* RecordMeetingEnv.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordMeetingEnv.swift; sourceTree = "<group>"; };
 		CA350C712984506E00434F8A /* SyncUps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SyncUps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA350C812984506F00434F8A /* SyncUpsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SyncUpsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA350C8B2984506F00434F8A /* SyncUpsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SyncUpsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -120,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				0923E9B12E6DA341007BBBC9 /* SyncUpList.swift */,
+				09F4C9D82FD020C800A1B2C3 /* SyncUpListEnv.swift */,
 				0923E9B22E6DA341007BBBC9 /* SyncUpListUI.swift */,
 			);
 			path = SyncUpList;
@@ -129,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				0923E9B72E6DA3D2007BBBC9 /* SyncUpDetails.swift */,
+				09F4CA0A2FD02AA100A1B2C3 /* SyncUpDetailsEnv.swift */,
 				0923E9B92E6DA3DC007BBBC9 /* SyncUpDetailsUI.swift */,
 			);
 			path = SyncUpDetails;
@@ -156,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				0923E9CA2E6F3712007BBBC9 /* RecordMeeting.swift */,
+				09F4CB012FD03F3200A1B2C3 /* RecordMeetingEnv.swift */,
 				0923E9CC2E6F371A007BBBC9 /* RecordMeetingUI.swift */,
 			);
 			path = RecordMeeting;
@@ -396,13 +405,16 @@
 				0923E9BF2E6DA458007BBBC9 /* SyncUpFormUI.swift in Sources */,
 				0923E9BD2E6DA44D007BBBC9 /* SyncUpForm.swift in Sources */,
 				0923E9CB2E6F3716007BBBC9 /* RecordMeeting.swift in Sources */,
+				09F4CB022FD03F3200A1B2C3 /* RecordMeetingEnv.swift in Sources */,
 				CA350CB7298450BF00434F8A /* Models.swift in Sources */,
+				09F4C9D92FD020C800A1B2C3 /* SyncUpListEnv.swift in Sources */,
 				0923E9B42E6DA341007BBBC9 /* SyncUpList.swift in Sources */,
 				0923E9B52E6DA341007BBBC9 /* SyncUpListUI.swift in Sources */,
 				0923E9A12E6CD01B007BBBC9 /* SyncUpsApp.swift in Sources */,
 				CA350CB3298450BF00434F8A /* SpeechClient.swift in Sources */,
 				096ABF892E70461B00291CE9 /* AppFlowContainer.swift in Sources */,
 				0923E9B82E6DA3D5007BBBC9 /* SyncUpDetails.swift in Sources */,
+				09F4CA0B2FD02AA100A1B2C3 /* SyncUpDetailsEnv.swift in Sources */,
 				0923E9C32E6E17CE007BBBC9 /* SyncUpDetailsUI.swift in Sources */,
 				CA350CB5298450BF00434F8A /* SoundEffectClient.swift in Sources */,
 				0923E9C62E6F3437007BBBC9 /* MeetingNotes.swift in Sources */,

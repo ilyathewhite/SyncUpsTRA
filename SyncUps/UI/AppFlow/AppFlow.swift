@@ -11,12 +11,11 @@ import AsyncNavigation
 
 @MainActor
 struct AppFlow {
-    let rootIndex: Int
     let syncUp: SyncUp
     let proxy: NavigationProxy
 
     func endFlow() {
-        proxy.pop(to: rootIndex)
+        proxy.popToRoot()
     }
 
     func showSyncUpDetails(_ syncUp: SyncUp) -> NavigationNode<SyncUpDetails> {

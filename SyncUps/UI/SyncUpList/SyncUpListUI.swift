@@ -43,24 +43,11 @@ extension SyncUpList: StoreUINamespace {
             }
             .connectOnAppear {
                 store.environment = .init(
-                    createSyncUp: {
-                        let formStore = SyncUpForm.store(
-                            syncUp: .init(id: .init()),
-                            title: "New sync-up",
-                            saveTitle: "Add",
-                            cancelTitle: "Dismiss"
-                        )
-                        if let syncUp = try? await store.run(formStore) {
-                            appEnv.storageClient.saveSyncUp(syncUp)
-                            return syncUp
-                        }
-                        else {
-                            return nil
-                        }
+                    createSyncUp: { [weak store] in
+                        guard let store else { return nil }
+                        return await Nsp.createSyncUp(store: store)
                     },
-                    allSyncUps: {
-                        appEnv.storageClient.allSyncUps()
-                    }
+                    allSyncUps: Nsp.allSyncUps
                 )
             }
         }

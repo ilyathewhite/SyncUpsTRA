@@ -246,27 +246,10 @@ extension RecordMeeting: StoreUINamespace {
                             speechRecognizerFailureAlertResult = continuation
                         }
                     },
-                    prepareSoundPlayer: {
-                        appEnv.soundEffectClient.load("ding.wav")
-                    },
-                    playNextSpeakerSound: {
-                        appEnv.soundEffectClient.play()
-                    },
-                    startTranscriptRecording: {
-                        let authorization =
-                            await appEnv.speechClient.authorizationStatus() == .notDetermined
-                            ? appEnv.speechClient.requestAuthorization()
-                            : appEnv.speechClient.authorizationStatus()
-
-                        guard authorization == .authorized else {
-                            return .init(unfolding: { nil })
-                        }
-
-                        return await appEnv.speechClient.startTask(SFSpeechAudioBufferRecognitionRequest())
-                    },
-                    now: {
-                        Date.now
-                    }
+                    prepareSoundPlayer: Nsp.prepareSoundPlayer,
+                    playNextSpeakerSound: Nsp.playNextSpeakerSound,
+                    startTranscriptRecording: Nsp.startTranscriptRecording,
+                    now: Nsp.now
                 )
 
                 store.send(.effect(.prepareSoundPlayer))

@@ -16,7 +16,7 @@ struct AppFlowContainer: View {
 
     var body: some View {
         NavigationFlow(syncUpList()) { syncUp, proxy in
-            await AppFlow(rootIndex: 0, syncUp: syncUp, proxy: proxy).run()
+            await AppFlow(syncUp: syncUp, proxy: proxy).run()
         }
     }
 }
