@@ -11,32 +11,46 @@ struct StorageClient {
     var deleteSyncUp: @MainActor (SyncUp) -> Void
     var saveMeetingNotes: @MainActor (SyncUp, Meeting) -> Void
     var findSyncUp: @MainActor (SyncUp.ID) -> SyncUp?
-
-    init() {
-        allSyncUps = {
-            Storage.shared.allSyncUps()
-        }
-
-        saveSyncUp = {
-            Storage.shared.saveSyncUp($0)
-        }
-
-        deleteSyncUp = {
-            Storage.shared.deleteSyncUp($0)
-        }
-
-        saveMeetingNotes = {
-            Storage.shared.saveMeetingNotes($0, $1)
-        }
-
-        findSyncUp = {
-            Storage.shared.findSyncUp($0)
-        }
-    }
 }
 
-private class Storage {
-    nonisolated(unsafe) static let shared = Storage()
+extension StorageClient {
+    @MainActor
+    static func allSyncUps() -> [SyncUp] {
+        Storage.shared.allSyncUps()
+    }
+
+    @MainActor
+    static func saveSyncUp(_ syncUp: SyncUp) {
+        Storage.shared.saveSyncUp(syncUp)
+    }
+
+    @MainActor
+    static func deleteSyncUp(_ syncUp: SyncUp) {
+        Storage.shared.deleteSyncUp(syncUp)
+    }
+
+    @MainActor
+    static func saveMeetingNotes(_ syncUp: SyncUp, _ meeting: Meeting) {
+        Storage.shared.saveMeetingNotes(syncUp, meeting)
+    }
+
+    @MainActor
+    static func findSyncUp(_ id: SyncUp.ID) -> SyncUp? {
+        Storage.shared.findSyncUp(id)
+    }
+
+    static let liveValue = Self(
+        allSyncUps: Self.allSyncUps,
+        saveSyncUp: Self.saveSyncUp,
+        deleteSyncUp: Self.deleteSyncUp,
+        saveMeetingNotes: Self.saveMeetingNotes,
+        findSyncUp: Self.findSyncUp
+    )
+}
+
+@MainActor
+private final class Storage {
+    static let shared = Storage()
 
     private var syncUps: [SyncUp] = SyncUp.sampleList
 

@@ -8,10 +8,12 @@
 import Speech
 
 extension RecordMeeting {
+    @MainActor
     static func prepareSoundPlayer() {
         appEnv.soundEffectClient.load("ding.wav")
     }
 
+    @MainActor
     static func playNextSpeakerSound() {
         appEnv.soundEffectClient.play()
     }

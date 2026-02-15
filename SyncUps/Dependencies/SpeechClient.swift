@@ -12,7 +12,7 @@ struct SpeechClient {
 }
 
 extension SpeechClient {
-  static var liveValue: SpeechClient {
+  static let liveValue: SpeechClient = {
     let speech = Speech()
     return SpeechClient(
       authorizationStatus: { SFSpeechRecognizer.authorizationStatus() },
@@ -27,7 +27,7 @@ extension SpeechClient {
         await speech.startTask(request: request)
       }
     )
-  }
+  }()
 
   static var previewValue: SpeechClient {
     Self(

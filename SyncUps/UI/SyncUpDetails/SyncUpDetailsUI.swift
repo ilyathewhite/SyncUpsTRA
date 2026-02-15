@@ -8,6 +8,7 @@
 import SwiftUI
 import ReducerArchitecture
 import SwiftUIEx
+import TaskIsolatedEnv
 
 extension SyncUpDetails: StoreUINamespace {
     struct ContentView: StoreContentView {
@@ -218,28 +219,32 @@ extension SyncUpDetails: StoreUINamespace {
 }
 
 #Preview {
-    appEnv = .init()
-    let store = SyncUpDetails.store(.designMock)
+    prepareTaskIsolatedEnv(AppEnvironment.self, override: { env in
+        env = .liveValue
+    })
+    let store = SyncUpDetails.store(SyncUp.designMock)
     return NavigationStack {
         store.contentView
     }
 }
 
 #Preview("restricted") {
-    appEnv = .init()
-    appEnv.speechClient.authorizationStatus =  { .restricted }
-
-    let store = SyncUpDetails.store(.designMock)
+    prepareTaskIsolatedEnv(AppEnvironment.self, override: { env in
+        env = .liveValue
+        env.speechClient.authorizationStatus = { .restricted }
+    })
+    let store = SyncUpDetails.store(SyncUp.designMock)
     return NavigationStack {
         store.contentView
     }
 }
 
 #Preview("denied") {
-    appEnv = .init()
-    appEnv.speechClient.authorizationStatus =  { .denied }
-
-    let store = SyncUpDetails.store(.designMock)
+    prepareTaskIsolatedEnv(AppEnvironment.self, override: { env in
+        env = .liveValue
+        env.speechClient.authorizationStatus = { .denied }
+    })
+    let store = SyncUpDetails.store(SyncUp.designMock)
     return NavigationStack {
         store.contentView
     }

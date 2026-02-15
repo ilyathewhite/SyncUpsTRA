@@ -27,6 +27,7 @@
 		09F4C9D92FD020C800A1B2C3 /* SyncUpListEnv.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F4C9D82FD020C800A1B2C3 /* SyncUpListEnv.swift */; };
 		09F4CA0B2FD02AA100A1B2C3 /* SyncUpDetailsEnv.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F4CA0A2FD02AA100A1B2C3 /* SyncUpDetailsEnv.swift */; };
 		09F4CB022FD03F3200A1B2C3 /* RecordMeetingEnv.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F4CB012FD03F3200A1B2C3 /* RecordMeetingEnv.swift */; };
+		09F4CC022FD071E200A1B2C3 /* TaskIsolatedEnv in Frameworks */ = {isa = PBXBuildFile; productRef = 09F4CC032FD071E200A1B2C3 /* TaskIsolatedEnv */; };
 		CA350CB3298450BF00434F8A /* SpeechClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA350CA6298450BF00434F8A /* SpeechClient.swift */; };
 		CA350CB5298450BF00434F8A /* SoundEffectClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA350CA8298450BF00434F8A /* SoundEffectClient.swift */; };
 		CA350CB7298450BF00434F8A /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA350CAA298450BF00434F8A /* Models.swift */; };
@@ -86,6 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09F4CC022FD071E200A1B2C3 /* TaskIsolatedEnv in Frameworks */,
 				0923E9A42E6CD070007BBBC9 /* ReducerArchitecture in Frameworks */,
 				CAAF4DCF2C3586E200774888 /* Tagged in Frameworks */,
 				0923E9C22E6DBC21007BBBC9 /* SwiftUIEx in Frameworks */,
@@ -273,6 +275,7 @@
 				CAAF4DCE2C3586E200774888 /* Tagged */,
 				0923E9A32E6CD070007BBBC9 /* ReducerArchitecture */,
 				0923E9C12E6DBC21007BBBC9 /* SwiftUIEx */,
+				09F4CC032FD071E200A1B2C3 /* TaskIsolatedEnv */,
 			);
 			productName = SyncUps;
 			productReference = CA350C712984506E00434F8A /* SyncUps.app */;
@@ -354,6 +357,7 @@
 				CAAF4DCD2C3586E200774888 /* XCRemoteSwiftPackageReference "swift-tagged" */,
 				0923E9A22E6CD070007BBBC9 /* XCRemoteSwiftPackageReference "ReducerArchitecture" */,
 				0923E9C02E6DBC21007BBBC9 /* XCRemoteSwiftPackageReference "SwiftUIEx" */,
+				09F4CC042FD071E200A1B2C3 /* XCRemoteSwiftPackageReference "TaskIsolatedEnv" */,
 			);
 			productRefGroup = CA350C722984506E00434F8A /* Products */;
 			projectDirPath = "";
@@ -773,6 +777,14 @@
 				minimumVersion = 1.0.7;
 			};
 		};
+		09F4CC042FD071E200A1B2C3 /* XCRemoteSwiftPackageReference "TaskIsolatedEnv" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ilyathewhite/TaskIsolatedEnv.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		CAAF4DCD2C3586E200774888 /* XCRemoteSwiftPackageReference "swift-tagged" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-tagged";
@@ -793,6 +805,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0923E9C02E6DBC21007BBBC9 /* XCRemoteSwiftPackageReference "SwiftUIEx" */;
 			productName = SwiftUIEx;
+		};
+		09F4CC032FD071E200A1B2C3 /* TaskIsolatedEnv */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 09F4CC042FD071E200A1B2C3 /* XCRemoteSwiftPackageReference "TaskIsolatedEnv" */;
+			productName = TaskIsolatedEnv;
 		};
 		CAAF4DCE2C3586E200774888 /* Tagged */ = {
 			isa = XCSwiftPackageProductDependency;
