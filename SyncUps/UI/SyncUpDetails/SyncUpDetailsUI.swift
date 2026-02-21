@@ -11,6 +11,20 @@ import SwiftUIEx
 import TaskIsolatedEnv
 
 extension SyncUpDetails: StoreUINamespace {
+    static let startMeetingButton = "SyncUpDetails.startMeetingButton"
+    static let editButton = "SyncUpDetails.editButton"
+    static let deleteMeetingButton = "SyncUpDetails.deleteMeetingButton"
+    static let deleteSyncUpButton = "SyncUpDetails.deleteSyncUpButton"
+    static let confirmDeleteNevermindTitle = "Nevermind"
+    static let confirmDeleteYesTitle = "Yes"
+    static let continueWithoutRecordingTitle = "Continue without recording"
+    static let openSettingsTitle = "Open Settings"
+    static let cancelTitle = "Cancel"
+
+    static func meetingRow(_ id: Meeting.ID) -> String {
+        "SyncUpDetails.meetingRow.\(id.rawValue.uuidString)"
+    }
+
     struct ContentView: StoreContentView {
         typealias Nsp = SyncUpDetails
         @ObservedObject var store: Store
@@ -42,6 +56,7 @@ extension SyncUpDetails: StoreUINamespace {
                                 .font(.headline)
                                 .foregroundColor(.accentColor)
                         }
+                        .testIdentifier(Nsp.startMeetingButton)
 
                         // Length
                         HStack {
@@ -78,6 +93,7 @@ extension SyncUpDetails: StoreUINamespace {
                                         Text(meeting.date, style: .time)
                                     }
                                 }
+                                .testIdentifier(Nsp.meetingRow(meeting.id))
                                 .swipeActions(edge: .trailing) {
                                     Button(
                                         role: .destructive,
@@ -86,6 +102,7 @@ extension SyncUpDetails: StoreUINamespace {
                                             Label("Delete", systemImage: "trash")
                                         }
                                     )
+                                    .testIdentifier(Nsp.deleteMeetingButton)
                                 }
                             }
                         },
@@ -112,6 +129,7 @@ extension SyncUpDetails: StoreUINamespace {
                     Button("Delete") {
                         store.send(.effect(.confirmDeleteSyncUp))
                     }
+                    .testIdentifier(Nsp.deleteSyncUpButton)
                     .foregroundColor(.red)
                     .frame(maxWidth: .infinity)
                 }
@@ -120,13 +138,13 @@ extension SyncUpDetails: StoreUINamespace {
             .sheet(self, \.editSyncUpUI) { ui in ui.makeView() }
             // Confirmation alert for deleting the syncUp
             .taskAlert(
-                "Delete",
+                "Delete?",
                 $confirmDelete,
                 actions: { complete in
-                    Button("Nevermind", role: .cancel) {
+                    Button(Nsp.confirmDeleteNevermindTitle, role: .cancel) {
                         complete(false)
                     }
-                    Button("Yes", role: .destructive) {
+                    Button(Nsp.confirmDeleteYesTitle, role: .destructive) {
                         complete(true)
                     }
                 },
@@ -139,10 +157,10 @@ extension SyncUpDetails: StoreUINamespace {
                 "Speech recognition restricted",
                 $speechRecognitionRestrictedAlertResult,
                 actions: { complete in
-                    Button("Continue without recording") {
+                    Button(Nsp.continueWithoutRecordingTitle) {
                         complete(.startMeeting)
                     }
-                    Button("Cancel") {
+                    Button(Nsp.cancelTitle) {
                         complete(.noAction)
                     }
                 },
@@ -155,13 +173,13 @@ extension SyncUpDetails: StoreUINamespace {
                 "Speech recognition denied",
                 $speechRecognitionDeniedAlertResult,
                 actions: { complete in
-                    Button("Continue without recording") {
+                    Button(Nsp.continueWithoutRecordingTitle) {
                         complete(.startMeeting)
                     }
-                    Button("Open Settings") {
+                    Button(Nsp.openSettingsTitle) {
                         complete(.openSettings)
                     }
-                    Button("Cancel") {
+                    Button(Nsp.cancelTitle) {
                         complete(.noAction)
                     }
                 },
@@ -174,31 +192,27 @@ extension SyncUpDetails: StoreUINamespace {
                 Button("Edit") {
                     store.send(.effect(.editSyncUp(syncUp)))
                 }
+                .testIdentifier(Nsp.editButton)
             }
             .onAppear {
                 guard store.environment != nil else { return }
                 store.send(.effect(.updateSyncUp))
             }
             .connectOnAppear {
+                guard store.environment == nil else { return }
                 store.environment = .init(
                     edit: { [weak store] syncUp in
                         guard let store else { return nil }
                         return await Nsp.edit(syncUp: syncUp, store: store)
                     },
-                    save: { syncUp in
-                        Nsp.save(syncUp: syncUp)
-                    },
-                    find: { id in
-                        Nsp.find(id: id)
-                    },
+                    save: Nsp.save(syncUp:),
+                    find: Nsp.find(id:),
                     confirmDelete: {
                         try await withCheckedThrowingContinuation { continuation in
                             confirmDelete = continuation
                         }
                     },
-                    checkSpeechRecognitionAuthorization: {
-                        Nsp.checkSpeechRecognitionAuthorization()
-                    },
+                    checkSpeechRecognitionAuthorization: Nsp.checkSpeechRecognitionAuthorization,
                     showSpeechRecognitionRestrictedAlert: {
                         try await withCheckedThrowingContinuation { continuation in
                             speechRecognitionRestrictedAlertResult = continuation
@@ -209,9 +223,7 @@ extension SyncUpDetails: StoreUINamespace {
                             speechRecognitionDeniedAlertResult = continuation
                         }
                     },
-                    openSettings: {
-                        Nsp.openSettings()
-                    }
+                    openSettings: Nsp.openSettings
                 )
             }
         }

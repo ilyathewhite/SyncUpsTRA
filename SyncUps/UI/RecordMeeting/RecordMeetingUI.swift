@@ -5,12 +5,19 @@
 //  Created by Ilya Belenkiy on 9/8/25.
 //
 
-import Combine
 import SwiftUI
-import Speech
 import ReducerArchitecture
+import SwiftUIEx
 
 extension RecordMeeting: StoreUINamespace {
+    static let nextSpeakerButton = "RecordMeeting.nextSpeakerButton"
+    static let endMeetingButton = "RecordMeeting.endMeetingButton"
+    static let endMeetingSaveTitle = "Save and end"
+    static let endMeetingDiscardTitle = "Discard"
+    static let endMeetingResumeTitle = "Resume"
+    static let speechFailureContinueTitle = "Continue meeting"
+    static let speechFailureDiscardTitle = "Discard meeting"
+
     struct MeetingHeaderView: View {
         let progress: Double
         let secondsElapsed: Int
@@ -140,6 +147,7 @@ extension RecordMeeting: StoreUINamespace {
                     Button(action: nextButtonTapped) {
                         Image(systemName: "forward.fill")
                     }
+                    .testIdentifier(RecordMeeting.nextSpeakerButton)
                 }
             }
             .padding([.bottom, .horizontal])
@@ -194,15 +202,15 @@ extension RecordMeeting: StoreUINamespace {
                 "End meeting?",
                 $endMeetingAlertResult,
                 actions: { complete in
-                    Button("Save and end") {
+                    Button(Nsp.endMeetingSaveTitle) {
                         complete(.saveAndEnd)
                     }
                     if showDiscardButton {
-                        Button("Discard", role: .destructive) {
+                        Button(Nsp.endMeetingDiscardTitle, role: .destructive) {
                             complete(.discard)
                         }
                     }
-                    Button("Resume", role: .cancel) {
+                    Button(Nsp.endMeetingResumeTitle, role: .cancel) {
                         complete(.resume)
                     }
                 },
@@ -214,10 +222,10 @@ extension RecordMeeting: StoreUINamespace {
                 "Speech recognition failure",
                 $speechRecognizerFailureAlertResult,
                 actions: { complete in
-                    Button("Continue meeting", role: .cancel) {
+                    Button(Nsp.speechFailureContinueTitle, role: .cancel) {
                         complete(.continue)
                     }
-                    Button("Discard meeting", role: .destructive) {
+                    Button(Nsp.speechFailureDiscardTitle, role: .destructive) {
                         complete(.discard)
                     }
                 },
@@ -230,10 +238,12 @@ extension RecordMeeting: StoreUINamespace {
                     Button("End meeting") {
                         store.send(.effect(.showEndMeetingAlert(discardable: true)))
                     }
+                    .testIdentifier(Nsp.endMeetingButton)
                 }
             }
             .navigationBarBackButtonHidden(true)
             .connectOnAppear {
+                guard store.environment == nil else { return }
                 store.environment = .init(
                     showEndMeetingAlert: { discardable in
                         showDiscardButton = discardable
@@ -252,9 +262,7 @@ extension RecordMeeting: StoreUINamespace {
                     now: Nsp.now
                 )
 
-                store.send(.effect(.prepareSoundPlayer))
-                store.send(.effect(.startOneSecondTimer))
-                store.send(.effect(.startTranscriptRecording))
+                Nsp.start(store)
             }
         }
     }

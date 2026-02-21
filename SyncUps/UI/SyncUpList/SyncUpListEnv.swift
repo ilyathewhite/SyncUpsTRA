@@ -9,7 +9,7 @@ extension SyncUpList {
     @MainActor
     static func createSyncUp(store: Store) async -> SyncUp? {
         let formStore = SyncUpForm.store(
-            syncUp: .init(id: .init()),
+            syncUp: .init(id: .init(), attendees: [Attendee(id: .init())]),
             title: "New sync-up",
             saveTitle: "Add",
             cancelTitle: "Dismiss"

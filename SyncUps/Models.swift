@@ -1,6 +1,12 @@
 import SwiftUI
 import Tagged
 
+extension Tagged where RawValue == UUID {
+    init() {
+        self.init(UUID())
+    }
+}
+
 struct SyncUp: Hashable, Identifiable, Codable {
     let id: Tagged<Self, UUID>
     var attendees: [Attendee] = []
@@ -74,19 +80,19 @@ enum Theme: String, CaseIterable, Equatable, Hashable, Identifiable, Codable {
 
 extension SyncUp {
     static let mock = Self(
-        id: SyncUp.ID(UUID()),
+        id: SyncUp.ID(),
         attendees: [
-            Attendee(id: Attendee.ID(UUID()), name: "Blob"),
-            Attendee(id: Attendee.ID(UUID()), name: "Blob Jr"),
-            Attendee(id: Attendee.ID(UUID()), name: "Blob Sr"),
-            Attendee(id: Attendee.ID(UUID()), name: "Blob Esq"),
-            Attendee(id: Attendee.ID(UUID()), name: "Blob III"),
-            Attendee(id: Attendee.ID(UUID()), name: "Blob I"),
+            Attendee(id: Attendee.ID(), name: "Blob"),
+            Attendee(id: Attendee.ID(), name: "Blob Jr"),
+            Attendee(id: Attendee.ID(), name: "Blob Sr"),
+            Attendee(id: Attendee.ID(), name: "Blob Esq"),
+            Attendee(id: Attendee.ID(), name: "Blob III"),
+            Attendee(id: Attendee.ID(), name: "Blob I"),
         ],
         duration: .seconds(60),
         meetings: [
             Meeting(
-                id: Meeting.ID(UUID()),
+                id: Meeting.ID(),
                 date: Date().addingTimeInterval(-60 * 60 * 24 * 7),
                 transcript: """
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor \
@@ -103,10 +109,10 @@ extension SyncUp {
     )
 
     static let engineeringMock = Self(
-        id: SyncUp.ID(UUID()),
+        id: SyncUp.ID(),
         attendees: [
-            Attendee(id: Attendee.ID(UUID()), name: "Blob"),
-            Attendee(id: Attendee.ID(UUID()), name: "Blob Jr"),
+            Attendee(id: Attendee.ID(), name: "Blob"),
+            Attendee(id: Attendee.ID(), name: "Blob Jr"),
         ],
         duration: .seconds(60 * 10),
         meetings: [],
@@ -115,10 +121,10 @@ extension SyncUp {
     )
 
     static let designMock = Self(
-        id: SyncUp.ID(UUID()),
+        id: SyncUp.ID(),
         attendees: [
-            Attendee(id: Attendee.ID(UUID()), name: "Blob Sr"),
-            Attendee(id: Attendee.ID(UUID()), name: "Blob Jr"),
+            Attendee(id: Attendee.ID(), name: "Blob Sr"),
+            Attendee(id: Attendee.ID(), name: "Blob Jr"),
         ],
         duration: .seconds(60 * 30),
         meetings: [],

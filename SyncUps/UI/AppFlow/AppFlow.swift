@@ -13,6 +13,7 @@ import AsyncNavigation
 struct AppFlow {
     let syncUp: SyncUp
     let proxy: NavigationProxy
+    let storageClient: StorageClient = appEnv.storageClient
 
     func endFlow() {
         proxy.popToRoot()
@@ -39,7 +40,7 @@ struct AppFlow {
                     case .discard:
                         break
                     case .save(let meeting):
-                        appEnv.storageClient.saveMeetingNotes(syncUp, meeting)
+                        storageClient.saveMeetingNotes(syncUp, meeting)
                     }
                     proxy.pop(to: detailsIndex)
                 }
@@ -50,7 +51,7 @@ struct AppFlow {
                 }
 
             case .deleteSyncUp:
-                appEnv.storageClient.deleteSyncUp(syncUp)
+                storageClient.deleteSyncUp(syncUp)
                 endFlow()
             }
         }

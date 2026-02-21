@@ -98,6 +98,19 @@ extension RecordMeeting {
         Store(.init(syncUp: syncUp), env: nil)
     }
 
+    // This is not a chain of effects to avoid returning a task
+    // that would run forever due to an endless effect.
+    @MainActor
+    @discardableResult
+    static func start(_ store: Store) -> Task<Void, Never> {
+        Task {
+            await store.send(.effect(.prepareSoundPlayer))?.value
+            // endless effect, don't wait for it
+            store.send(.effect(.startOneSecondTimer))
+            await store.send(.effect(.startTranscriptRecording))?.value
+        }
+    }
+
     @MainActor
     static func reduce(_ state: inout StoreState, _ action: MutatingAction) -> Store.SyncEffect {
         switch action {

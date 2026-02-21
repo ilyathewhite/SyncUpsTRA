@@ -33,6 +33,6 @@ extension RecordMeeting {
     }
 
     static func now() -> Date {
-        Date.now
+        appEnv.now()
     }
 }

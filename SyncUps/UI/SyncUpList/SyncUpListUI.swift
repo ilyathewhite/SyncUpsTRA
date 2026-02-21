@@ -7,8 +7,15 @@
 
 import SwiftUI
 import ReducerArchitecture
+import SwiftUIEx
 
 extension SyncUpList: StoreUINamespace {
+    static let addButton = "SyncUpList.addButton"
+
+    static func row(_ id: SyncUp.ID) -> String {
+        "SyncUpList.row.\(id.rawValue.uuidString)"
+    }
+
     struct ContentView: StoreContentView {
         typealias Nsp = SyncUpList
         @ObservedObject var store: Store
@@ -23,6 +30,7 @@ extension SyncUpList: StoreUINamespace {
             List {
                 ForEach(Array(store.state.syncUps)) { syncUp in
                     CardView(syncUp: syncUp)
+                        .testIdentifier(Nsp.row(syncUp.id))
                         .listRowBackground(syncUp.theme.mainColor)
                         .contentShape(Rectangle())
                         .onTapGesture {
@@ -35,6 +43,7 @@ extension SyncUpList: StoreUINamespace {
                 Button(action: { store.send(.effect(.addSyncUp)) }) {
                     Image(systemName: "plus")
                 }
+                .testIdentifier(Nsp.addButton)
             }
             .navigationTitle("Daily Sync-ups")
             .onAppear {

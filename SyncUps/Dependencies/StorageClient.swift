@@ -49,7 +49,7 @@ extension StorageClient {
 }
 
 @MainActor
-private final class Storage {
+final class Storage {
     static let shared = Storage()
 
     private var syncUps: [SyncUp] = SyncUp.sampleList

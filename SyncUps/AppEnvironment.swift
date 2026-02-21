@@ -12,11 +12,13 @@ struct AppEnvironment: TaskIsolatedEnvType {
     var speechClient: SpeechClient
     var soundEffectClient: SoundEffectClient
     var storageClient: StorageClient
+    var now: @Sendable () -> Date
     var openSettings: @MainActor () -> Void
 
     static let speechClient = SpeechClient.liveValue
     static let soundEffectClient = SoundEffectClient.liveValue
     static let storageClient = StorageClient.liveValue
+    static let now: @Sendable () -> Date = { Date.now }
 
     @MainActor
     static func openSettings() {
@@ -31,6 +33,7 @@ struct AppEnvironment: TaskIsolatedEnvType {
         speechClient: Self.speechClient,
         soundEffectClient: Self.soundEffectClient,
         storageClient: Self.storageClient,
+        now: Self.now,
         openSettings: Self.openSettings
     )
 }

@@ -21,6 +21,7 @@
 		0923E9C82E6F343E007BBBC9 /* MeetingNotesUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0923E9C72E6F343A007BBBC9 /* MeetingNotesUI.swift */; };
 		0923E9CB2E6F3716007BBBC9 /* RecordMeeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0923E9CA2E6F3712007BBBC9 /* RecordMeeting.swift */; };
 		0923E9CD2E6F371D007BBBC9 /* RecordMeetingUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0923E9CC2E6F371A007BBBC9 /* RecordMeetingUI.swift */; };
+		09685D8B2F43F99A0054DCE6 /* TestSuites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09685D8A2F43F9910054DCE6 /* TestSuites.swift */; };
 		096ABF862E70449000291CE9 /* AppFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096ABF852E70448D00291CE9 /* AppFlow.swift */; };
 		096ABF892E70461B00291CE9 /* AppFlowContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096ABF882E70461700291CE9 /* AppFlowContainer.swift */; };
 		096ABF8B2E70616B00291CE9 /* StorageClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096ABF8A2E70616700291CE9 /* StorageClient.swift */; };
@@ -28,6 +29,22 @@
 		09F4CA0B2FD02AA100A1B2C3 /* SyncUpDetailsEnv.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F4CA0A2FD02AA100A1B2C3 /* SyncUpDetailsEnv.swift */; };
 		09F4CB022FD03F3200A1B2C3 /* RecordMeetingEnv.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F4CB012FD03F3200A1B2C3 /* RecordMeetingEnv.swift */; };
 		09F4CC022FD071E200A1B2C3 /* TaskIsolatedEnv in Frameworks */ = {isa = PBXBuildFile; productRef = 09F4CC032FD071E200A1B2C3 /* TaskIsolatedEnv */; };
+		A1F000012FD2000000A1B2C3 /* RecordMeetingModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F000112FD2000000A1B2C3 /* RecordMeetingModelTests.swift */; };
+		A1F000022FD2000000A1B2C3 /* SyncUpDetailsModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F000122FD2000000A1B2C3 /* SyncUpDetailsModelTests.swift */; };
+		A1F000032FD2000000A1B2C3 /* SyncUpFormModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F000132FD2000000A1B2C3 /* SyncUpFormModelTests.swift */; };
+		A1F000042FD2000000A1B2C3 /* SyncUpListModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F000142FD2000000A1B2C3 /* SyncUpListModelTests.swift */; };
+		A1F020012FD4000000A1B2C3 /* StorageClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F020112FD4000000A1B2C3 /* StorageClientTests.swift */; };
+		A1F002012FD2100000A1B2C3 /* SyncUpFormUserEventTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F002112FD2100000A1B2C3 /* SyncUpFormUserEventTests.swift */; };
+		A1F002022FD2100000A1B2C3 /* Hammer in Frameworks */ = {isa = PBXBuildFile; productRef = A1F002132FD2100000A1B2C3 /* Hammer */; };
+		A1F003012FD2200000A1B2C3 /* SwiftUIExTesting in Frameworks */ = {isa = PBXBuildFile; productRef = A1F003022FD2200000A1B2C3 /* SwiftUIExTesting */; };
+		A1F004012FD2300000A1B2C3 /* SyncUpListUserEventTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F004112FD2300000A1B2C3 /* SyncUpListUserEventTests.swift */; };
+		A1F005012FD2400000A1B2C3 /* SyncUpDetailsUserEventTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F005112FD2400000A1B2C3 /* SyncUpDetailsUserEventTests.swift */; };
+		A1F006012FD2500000A1B2C3 /* RecordMeetingUserEventTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F006112FD2500000A1B2C3 /* RecordMeetingUserEventTests.swift */; };
+		A1F007012FD2600000A1B2C3 /* NavigationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F007112FD2600000A1B2C3 /* NavigationTests.swift */; };
+		A1F008012FD2700000A1B2C3 /* SyncUpListOverlayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F008112FD2700000A1B2C3 /* SyncUpListOverlayTests.swift */; };
+		A1F009012FD2800000A1B2C3 /* SyncUpDetailsOverlayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F009112FD2800000A1B2C3 /* SyncUpDetailsOverlayTests.swift */; };
+		A1F00B012FD2A00000A1B2C3 /* RecordMeetingOverlayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F00B112FD2A00000A1B2C3 /* RecordMeetingOverlayTests.swift */; };
+		A1F00C012FD2B00000A1B2C3 /* IntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F00C112FD2B00000A1B2C3 /* IntegrationTests.swift */; };
 		CA350CB3298450BF00434F8A /* SpeechClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA350CA6298450BF00434F8A /* SpeechClient.swift */; };
 		CA350CB5298450BF00434F8A /* SoundEffectClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA350CA8298450BF00434F8A /* SoundEffectClient.swift */; };
 		CA350CB7298450BF00434F8A /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA350CAA298450BF00434F8A /* Models.swift */; };
@@ -38,13 +55,6 @@
 
 /* Begin PBXContainerItemProxy section */
 		CA350C822984506F00434F8A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CA350C692984506E00434F8A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = CA350C702984506E00434F8A;
-			remoteInfo = SyncUps;
-		};
-		CA350C8C2984506F00434F8A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = CA350C692984506E00434F8A /* Project object */;
 			proxyType = 1;
@@ -66,15 +76,29 @@
 		0923E9C72E6F343A007BBBC9 /* MeetingNotesUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingNotesUI.swift; sourceTree = "<group>"; };
 		0923E9CA2E6F3712007BBBC9 /* RecordMeeting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordMeeting.swift; sourceTree = "<group>"; };
 		0923E9CC2E6F371A007BBBC9 /* RecordMeetingUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordMeetingUI.swift; sourceTree = "<group>"; };
+		09685D8A2F43F9910054DCE6 /* TestSuites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSuites.swift; sourceTree = "<group>"; };
 		096ABF852E70448D00291CE9 /* AppFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlow.swift; sourceTree = "<group>"; };
 		096ABF882E70461700291CE9 /* AppFlowContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlowContainer.swift; sourceTree = "<group>"; };
 		096ABF8A2E70616700291CE9 /* StorageClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageClient.swift; sourceTree = "<group>"; };
 		09F4C9D82FD020C800A1B2C3 /* SyncUpListEnv.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncUpListEnv.swift; sourceTree = "<group>"; };
 		09F4CA0A2FD02AA100A1B2C3 /* SyncUpDetailsEnv.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncUpDetailsEnv.swift; sourceTree = "<group>"; };
 		09F4CB012FD03F3200A1B2C3 /* RecordMeetingEnv.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordMeetingEnv.swift; sourceTree = "<group>"; };
+		A1F000112FD2000000A1B2C3 /* RecordMeetingModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordMeetingModelTests.swift; sourceTree = "<group>"; };
+		A1F000122FD2000000A1B2C3 /* SyncUpDetailsModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncUpDetailsModelTests.swift; sourceTree = "<group>"; };
+		A1F000132FD2000000A1B2C3 /* SyncUpFormModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncUpFormModelTests.swift; sourceTree = "<group>"; };
+		A1F000142FD2000000A1B2C3 /* SyncUpListModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncUpListModelTests.swift; sourceTree = "<group>"; };
+		A1F020112FD4000000A1B2C3 /* StorageClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageClientTests.swift; sourceTree = "<group>"; };
+		A1F002112FD2100000A1B2C3 /* SyncUpFormUserEventTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncUpFormUserEventTests.swift; sourceTree = "<group>"; };
+		A1F004112FD2300000A1B2C3 /* SyncUpListUserEventTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncUpListUserEventTests.swift; sourceTree = "<group>"; };
+		A1F005112FD2400000A1B2C3 /* SyncUpDetailsUserEventTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncUpDetailsUserEventTests.swift; sourceTree = "<group>"; };
+		A1F006112FD2500000A1B2C3 /* RecordMeetingUserEventTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordMeetingUserEventTests.swift; sourceTree = "<group>"; };
+		A1F007112FD2600000A1B2C3 /* NavigationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationTests.swift; sourceTree = "<group>"; };
+		A1F008112FD2700000A1B2C3 /* SyncUpListOverlayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncUpListOverlayTests.swift; sourceTree = "<group>"; };
+		A1F009112FD2800000A1B2C3 /* SyncUpDetailsOverlayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncUpDetailsOverlayTests.swift; sourceTree = "<group>"; };
+		A1F00B112FD2A00000A1B2C3 /* RecordMeetingOverlayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordMeetingOverlayTests.swift; sourceTree = "<group>"; };
+		A1F00C112FD2B00000A1B2C3 /* IntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationTests.swift; sourceTree = "<group>"; };
 		CA350C712984506E00434F8A /* SyncUps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SyncUps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA350C812984506F00434F8A /* SyncUpsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SyncUpsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		CA350C8B2984506F00434F8A /* SyncUpsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SyncUpsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA350CA6298450BF00434F8A /* SpeechClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeechClient.swift; sourceTree = "<group>"; };
 		CA350CA8298450BF00434F8A /* SoundEffectClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundEffectClient.swift; sourceTree = "<group>"; };
 		CA350CAA298450BF00434F8A /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
@@ -98,13 +122,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CA350C882984506F00434F8A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				A1F003012FD2200000A1B2C3 /* SwiftUIExTesting in Frameworks */,
+				A1F002022FD2100000A1B2C3 /* Hammer in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,6 +149,7 @@
 				0923E9B12E6DA341007BBBC9 /* SyncUpList.swift */,
 				09F4C9D82FD020C800A1B2C3 /* SyncUpListEnv.swift */,
 				0923E9B22E6DA341007BBBC9 /* SyncUpListUI.swift */,
+				09685D6B2F420EE00054DCE6 /* Tests */,
 			);
 			path = SyncUpList;
 			sourceTree = "<group>";
@@ -140,6 +160,7 @@
 				0923E9B72E6DA3D2007BBBC9 /* SyncUpDetails.swift */,
 				09F4CA0A2FD02AA100A1B2C3 /* SyncUpDetailsEnv.swift */,
 				0923E9B92E6DA3DC007BBBC9 /* SyncUpDetailsUI.swift */,
+				09685D6C2F420F000054DCE6 /* Tests */,
 			);
 			path = SyncUpDetails;
 			sourceTree = "<group>";
@@ -149,6 +170,7 @@
 			children = (
 				0923E9BC2E6DA449007BBBC9 /* SyncUpForm.swift */,
 				0923E9BE2E6DA454007BBBC9 /* SyncUpFormUI.swift */,
+				09685D6A2F420CCB0054DCE6 /* Tests */,
 			);
 			path = SyncUpForm;
 			sourceTree = "<group>";
@@ -168,8 +190,48 @@
 				0923E9CA2E6F3712007BBBC9 /* RecordMeeting.swift */,
 				09F4CB012FD03F3200A1B2C3 /* RecordMeetingEnv.swift */,
 				0923E9CC2E6F371A007BBBC9 /* RecordMeetingUI.swift */,
+				09685D6D2F420F100054DCE6 /* Tests */,
 			);
 			path = RecordMeeting;
+			sourceTree = "<group>";
+		};
+		09685D6A2F420CCB0054DCE6 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				A1F000132FD2000000A1B2C3 /* SyncUpFormModelTests.swift */,
+				A1F002112FD2100000A1B2C3 /* SyncUpFormUserEventTests.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		09685D6B2F420EE00054DCE6 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				A1F000142FD2000000A1B2C3 /* SyncUpListModelTests.swift */,
+				A1F004112FD2300000A1B2C3 /* SyncUpListUserEventTests.swift */,
+				A1F008112FD2700000A1B2C3 /* SyncUpListOverlayTests.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		09685D6C2F420F000054DCE6 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				A1F000122FD2000000A1B2C3 /* SyncUpDetailsModelTests.swift */,
+				A1F005112FD2400000A1B2C3 /* SyncUpDetailsUserEventTests.swift */,
+				A1F009112FD2800000A1B2C3 /* SyncUpDetailsOverlayTests.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		09685D6D2F420F100054DCE6 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				A1F000112FD2000000A1B2C3 /* RecordMeetingModelTests.swift */,
+				A1F006112FD2500000A1B2C3 /* RecordMeetingUserEventTests.swift */,
+				A1F00B112FD2A00000A1B2C3 /* RecordMeetingOverlayTests.swift */,
+			);
+			path = Tests;
 			sourceTree = "<group>";
 		};
 		096ABF872E70460E00291CE9 /* AppFlow */ = {
@@ -186,7 +248,6 @@
 			children = (
 				CA350C732984506E00434F8A /* SyncUps */,
 				CA350C842984506F00434F8A /* SyncUpsTests */,
-				CA350C8E2984506F00434F8A /* SyncUpsUITests */,
 				CA350C722984506E00434F8A /* Products */,
 				CAC7A59F2ABA374D00985FC1 /* Frameworks */,
 			);
@@ -197,7 +258,6 @@
 			children = (
 				CA350C712984506E00434F8A /* SyncUps.app */,
 				CA350C812984506F00434F8A /* SyncUpsTests.xctest */,
-				CA350C8B2984506F00434F8A /* SyncUpsUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -219,15 +279,11 @@
 		CA350C842984506F00434F8A /* SyncUpsTests */ = {
 			isa = PBXGroup;
 			children = (
+				09685D8A2F43F9910054DCE6 /* TestSuites.swift */,
+				A1F007112FD2600000A1B2C3 /* NavigationTests.swift */,
+				A1F00C112FD2B00000A1B2C3 /* IntegrationTests.swift */,
 			);
 			path = SyncUpsTests;
-			sourceTree = "<group>";
-		};
-		CA350C8E2984506F00434F8A /* SyncUpsUITests */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = SyncUpsUITests;
 			sourceTree = "<group>";
 		};
 		CA350CA4298450BF00434F8A /* Dependencies */ = {
@@ -236,8 +292,17 @@
 				096ABF8A2E70616700291CE9 /* StorageClient.swift */,
 				CA350CA6298450BF00434F8A /* SpeechClient.swift */,
 				CA350CA8298450BF00434F8A /* SoundEffectClient.swift */,
+				A1F020212FD4000000A1B2C3 /* Tests */,
 			);
 			path = Dependencies;
+			sourceTree = "<group>";
+		};
+		A1F020212FD4000000A1B2C3 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				A1F020112FD4000000A1B2C3 /* StorageClientTests.swift */,
+			);
+			path = Tests;
 			sourceTree = "<group>";
 		};
 		CA350CD0298452F300434F8A /* Resources */ = {
@@ -296,28 +361,12 @@
 			);
 			name = SyncUpsTests;
 			packageProductDependencies = (
+				A1F002132FD2100000A1B2C3 /* Hammer */,
+				A1F003022FD2200000A1B2C3 /* SwiftUIExTesting */,
 			);
 			productName = SyncUpsTests;
 			productReference = CA350C812984506F00434F8A /* SyncUpsTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		CA350C8A2984506F00434F8A /* SyncUpsUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = CA350C9B2984506F00434F8A /* Build configuration list for PBXNativeTarget "SyncUpsUITests" */;
-			buildPhases = (
-				CA350C872984506F00434F8A /* Sources */,
-				CA350C882984506F00434F8A /* Frameworks */,
-				CA350C892984506F00434F8A /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				CA350C8D2984506F00434F8A /* PBXTargetDependency */,
-			);
-			name = SyncUpsUITests;
-			productName = SyncUpsUITests;
-			productReference = CA350C8B2984506F00434F8A /* SyncUpsUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
@@ -333,11 +382,6 @@
 						CreatedOnToolsVersion = 14.2;
 					};
 					CA350C802984506F00434F8A = {
-						CreatedOnToolsVersion = 14.2;
-						LastSwiftMigration = 1420;
-						TestTargetID = CA350C702984506E00434F8A;
-					};
-					CA350C8A2984506F00434F8A = {
 						CreatedOnToolsVersion = 14.2;
 						LastSwiftMigration = 1420;
 						TestTargetID = CA350C702984506E00434F8A;
@@ -358,6 +402,7 @@
 				0923E9A22E6CD070007BBBC9 /* XCRemoteSwiftPackageReference "ReducerArchitecture" */,
 				0923E9C02E6DBC21007BBBC9 /* XCRemoteSwiftPackageReference "SwiftUIEx" */,
 				09F4CC042FD071E200A1B2C3 /* XCRemoteSwiftPackageReference "TaskIsolatedEnv" */,
+				A1F002122FD2100000A1B2C3 /* XCRemoteSwiftPackageReference "Hammer" */,
 			);
 			productRefGroup = CA350C722984506E00434F8A /* Products */;
 			projectDirPath = "";
@@ -365,7 +410,6 @@
 			targets = (
 				CA350C702984506E00434F8A /* SyncUps */,
 				CA350C802984506F00434F8A /* SyncUpsTests */,
-				CA350C8A2984506F00434F8A /* SyncUpsUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -381,13 +425,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		CA350C7F2984506F00434F8A /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CA350C892984506F00434F8A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -429,13 +466,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CA350C872984506F00434F8A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				A1F002012FD2100000A1B2C3 /* SyncUpFormUserEventTests.swift in Sources */,
+				A1F005012FD2400000A1B2C3 /* SyncUpDetailsUserEventTests.swift in Sources */,
+				A1F004012FD2300000A1B2C3 /* SyncUpListUserEventTests.swift in Sources */,
+				A1F006012FD2500000A1B2C3 /* RecordMeetingUserEventTests.swift in Sources */,
+				A1F007012FD2600000A1B2C3 /* NavigationTests.swift in Sources */,
+				A1F00C012FD2B00000A1B2C3 /* IntegrationTests.swift in Sources */,
+				A1F008012FD2700000A1B2C3 /* SyncUpListOverlayTests.swift in Sources */,
+				A1F009012FD2800000A1B2C3 /* SyncUpDetailsOverlayTests.swift in Sources */,
+				A1F00B012FD2A00000A1B2C3 /* RecordMeetingOverlayTests.swift in Sources */,
+				A1F000012FD2000000A1B2C3 /* RecordMeetingModelTests.swift in Sources */,
+				A1F000022FD2000000A1B2C3 /* SyncUpDetailsModelTests.swift in Sources */,
+				09685D8B2F43F99A0054DCE6 /* TestSuites.swift in Sources */,
+				A1F020012FD4000000A1B2C3 /* StorageClientTests.swift in Sources */,
+				A1F000032FD2000000A1B2C3 /* SyncUpFormModelTests.swift in Sources */,
+				A1F000042FD2000000A1B2C3 /* SyncUpListModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -446,11 +491,6 @@
 			isa = PBXTargetDependency;
 			target = CA350C702984506E00434F8A /* SyncUps */;
 			targetProxy = CA350C822984506F00434F8A /* PBXContainerItemProxy */;
-		};
-		CA350C8D2984506F00434F8A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = CA350C702984506E00434F8A /* SyncUps */;
-			targetProxy = CA350C8C2984506F00434F8A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -674,51 +714,6 @@
 			};
 			name = Release;
 		};
-		CA350C9C2984506F00434F8A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = co.pointfree.SyncUpsUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = SyncUps;
-			};
-			name = Debug;
-		};
-		CA350C9D2984506F00434F8A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = co.pointfree.SyncUpsUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = SyncUps;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -745,15 +740,6 @@
 			buildConfigurations = (
 				CA350C992984506F00434F8A /* Debug */,
 				CA350C9A2984506F00434F8A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		CA350C9B2984506F00434F8A /* Build configuration list for PBXNativeTarget "SyncUpsUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				CA350C9C2984506F00434F8A /* Debug */,
-				CA350C9D2984506F00434F8A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -785,6 +771,14 @@
 				kind = branch;
 			};
 		};
+		A1F002122FD2100000A1B2C3 /* XCRemoteSwiftPackageReference "Hammer" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/lyft/Hammer.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.18.0;
+			};
+		};
 		CAAF4DCD2C3586E200774888 /* XCRemoteSwiftPackageReference "swift-tagged" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-tagged";
@@ -810,6 +804,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 09F4CC042FD071E200A1B2C3 /* XCRemoteSwiftPackageReference "TaskIsolatedEnv" */;
 			productName = TaskIsolatedEnv;
+		};
+		A1F002132FD2100000A1B2C3 /* Hammer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A1F002122FD2100000A1B2C3 /* XCRemoteSwiftPackageReference "Hammer" */;
+			productName = Hammer;
+		};
+		A1F003022FD2200000A1B2C3 /* SwiftUIExTesting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0923E9C02E6DBC21007BBBC9 /* XCRemoteSwiftPackageReference "SwiftUIEx" */;
+			productName = SwiftUIExTesting;
 		};
 		CAAF4DCE2C3586E200774888 /* Tagged */ = {
 			isa = XCSwiftPackageProductDependency;

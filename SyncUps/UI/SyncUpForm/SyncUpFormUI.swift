@@ -10,6 +10,19 @@ import ReducerArchitecture
 import SwiftUIEx
 
 extension SyncUpForm: StoreUINamespace {
+    static let titleField = "SyncUpForm.titleField"
+    static let durationSlider = "SyncUpForm.durationSlider"
+    static let themePicker = "SyncUpForm.themePicker"
+    static let attendeeField = "SyncUpForm.attendeeField"
+    static let deleteAttendeeButton = "SyncUpForm.deleteAttendeeButton"
+    static let newAttendeeButton = "SyncUpForm.newAttendeeButton"
+    static let cancelButton = "SyncUpForm.cancelButton"
+    static let saveButton = "SyncUpForm.saveButton"
+
+    static func themeOption(_ theme: Theme) -> String {
+        "SyncUpForm.themeOption.\(theme.rawValue)"
+    }
+
     struct ThemePicker: View {
         @Binding var selection: Theme
 
@@ -24,9 +37,11 @@ extension SyncUpForm: StoreUINamespace {
                     }
                     .foregroundColor(theme.accentColor)
                     .fixedSize(horizontal: false, vertical: true)
+                    .testIdentifier(SyncUpForm.themeOption(theme))
                     .tag(theme)
                 }
             }
+            .testIdentifier(SyncUpForm.themePicker)
         }
     }
 
@@ -59,6 +74,7 @@ extension SyncUpForm: StoreUINamespace {
                                 "Title",
                                 text: store.binding(\.syncUp.title, { .updateTitle($0) })
                             )
+                            .testIdentifier(Nsp.titleField)
                             .focused($focus, equals: .title)
 
                             // Duration
@@ -70,6 +86,7 @@ extension SyncUpForm: StoreUINamespace {
                                 ) {
                                     Text("Length")
                                 }
+                                .testIdentifier(Nsp.durationSlider)
                                 Spacer()
                                 Text(store.state.syncUp.duration.formatted(.units()))
                             }
@@ -92,6 +109,7 @@ extension SyncUpForm: StoreUINamespace {
                                         set: { store.send(.mutating(.updateAttendeeName(id: attendee.id, name: $0)))}
                                     )
                                 )
+                                .testIdentifier(Nsp.attendeeField)
                                 .focused($focus, equals: .attendee(attendee.id))
                                 .swipeActions(edge: .trailing) {
                                     Button(
@@ -101,6 +119,7 @@ extension SyncUpForm: StoreUINamespace {
                                             Label("Delete", systemImage: "trash")
                                         }
                                     )
+                                    .testIdentifier(Nsp.deleteAttendeeButton)
                                 }
                             }
 
@@ -108,6 +127,7 @@ extension SyncUpForm: StoreUINamespace {
                             Button("New attendee") {
                                 store.send(.mutating(.addAttendee))
                             }
+                            .testIdentifier(Nsp.newAttendeeButton)
                         },
                         header: {
                             Text("Attendees")
@@ -120,13 +140,21 @@ extension SyncUpForm: StoreUINamespace {
                         Button(store.state.cancelTitle) {
                             store.cancel()
                         }
+                        .testIdentifier(Nsp.cancelButton)
                     }
                     ToolbarItem(placement: .confirmationAction) {
                         Button(store.state.saveTitle) {
                             store.publish(store.state.syncUp)
                         }
+                        .testIdentifier(Nsp.saveButton)
                         .disabled(!store.state.canSave)
                     }
+                }
+            }
+            .task {
+                if focus == nil {
+                    await Task.yield()
+                    focus = .title
                 }
             }
             .connectOnAppear {
